@@ -171,7 +171,7 @@ class SudokuGame:
         except FileNotFoundError:
             print("Сохраненное состояние игры не найдено.")
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    game = SudokuGame(root)
-    root.mainloop()
+
+root = tk.Tk()
+game = SudokuGame(root)
+root.mainloop()
