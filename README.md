@@ -1,1 +1,1 @@
-Simple sudoku game, based on python, with gui.
+Simple sudoku game. Based on python, with gui.
