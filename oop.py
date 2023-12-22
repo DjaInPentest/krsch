@@ -117,7 +117,7 @@ class SudokuGame:
             	self.sudoku[row][col] = 0
             	self.entries[row][col].configure(bg='red', fg='white')
             	self.errors_count += 1  # Увеличиваем счетчик ошибок
-            	messagebox.showinfo("Вы совершили ошибку!", "Ошибок: 3")
+            	messagebox.showinfo("Вы совершили ошибку!", f"Ошибок: {self.errors_count}")
             	if self.errors_count >= 3:
             		messagebox.showinfo("Поражение", "Вы проиграли! Начинаем новую игру.")
             		self.errors_count = 0
