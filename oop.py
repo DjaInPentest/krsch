@@ -49,7 +49,6 @@ class SudokuGame:
         self.create_puzzle('easy')
         self.create_buttons()
         self.root.configure(bg='black')  # Set a dark background
-
     def create_puzzle(self, difficulty):
         if difficulty == 'easy':
             num_cells_to_remove = 30
@@ -57,7 +56,6 @@ class SudokuGame:
             num_cells_to_remove = 40
         else:
             num_cells_to_remove = 50
-
         self.sudoku = generate_sudoku()
         self.solution = [row[:] for row in self.sudoku]
 
@@ -69,8 +67,9 @@ class SudokuGame:
             self.sudoku[i][j] = 0
 
         self.create_grid()
-
     def create_grid(self):
+        for widget in self.root.winfo_children():
+            widget.grid_remove()
         self.entries = []
         for i in range(9):
             row = []
@@ -89,7 +88,7 @@ class SudokuGame:
 
         validate_button = tk.Button(self.root, text="Проверить", command=self.check_solution, bg="violet", fg="white")
         validate_button.grid(row=9, column=0, columnspan=3)
-        new_game_button = tk.Button(self.root, text="Новая игра", command=self.save_game, bg="violet", fg="white")
+        new_game_button = tk.Button(self.root, text="Новая игра", command=self.reset_puzzle, bg="violet", fg="white")
         new_game_button.grid(row=9, column=3, columnspan=3)
         save_button = tk.Button(self.root, text="Сохранить", command=self.save_game, bg="violet", fg="white")
         save_button.grid(row=9, column=6, columnspan=3)
@@ -179,4 +178,3 @@ class SudokuGame:
         except:
             messagebox.showinfo("Ой ой...", "Сохранение повреждено, либо не существует!")
             self.reset_puzzle() #Обработка ввода дурака. 
-
