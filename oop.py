@@ -111,20 +111,17 @@ class SudokuGame:
         if entry_value.isdigit() and 1 <= int(entry_value) <= 9:
             self.sudoku[row][col] = int(entry_value)
             self.entries[row][col].configure(bg='red', fg='white')
-            self.errors_count += 1  # Увеличиваем счетчик ошибок
+        if self.sudoku[row][col] == self.solution[row][col]:
+            self.entries[row][col].configure(bg='green', fg='white')
+
         else:
-            if event.keysym not in ('Tab', 'Return', 'Escape'):
+            if event.keysym in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
             	self.sudoku[row][col] = 0
             	self.entries[row][col].configure(bg='red', fg='white')
             	self.errors_count += 1  # Увеличиваем счетчик ошибок
             	messagebox.showinfo("Вы совершили ошибку!", f"Ошибок: {self.errors_count}")
             	if self.errors_count >= 3:
-            		messagebox.showinfo("Поражение", "Вы проиграли! Начинаем новую игру.")
-            		self.errors_count = 0
-            		self.reset_puzzle()  # Начинаем новую игру
-
-        if self.sudoku[row][col] == self.solution[row][col]:
-            self.entries[row][col].configure(bg='green', fg='white')
+            		messagebox.showinfo("Поражение", "Вы проиграли! Попробуйте начать новую игру!")
 
     def validate_solution(self):
         for i in range(9):
