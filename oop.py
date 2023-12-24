@@ -105,7 +105,7 @@ class SudokuGame:
         load_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Загрузить", menu=load_menu)
         load_menu.add_command(label="Загрузить игру", command=self.load_game)
-
+        
     def validate_entry(self, event, row, col):
         entry_value = self.entries[row][col].get()
         if entry_value.isdigit() and 1 <= int(entry_value) <= 9:
@@ -156,13 +156,24 @@ class SudokuGame:
         self.create_puzzle('easy')
 
     def save_game(self):
+    # Создаем копию текущего состояния sudoku для проверки значений
+        current_state = [row[:] for row in self.sudoku]
+
+        for i in range(9):
+            for j in range(9):
+            # Если значение в клетке не соответствует решению, устанавливаем его как 0
+                if self.sudoku[i][j] != self.solution[i][j]:
+                    self.sudoku[i][j] = 0
+
         game_state = {
             "sudoku": self.sudoku,
             "solution": self.solution
         }
-
         with open("sudoku_game_state.pkl", "wb") as f:
             pickle.dump(game_state, f)
+
+    # Возвращаем исходное состояние sudoku
+        self.sudoku = current_state
 
     def load_game(self):
         try:
